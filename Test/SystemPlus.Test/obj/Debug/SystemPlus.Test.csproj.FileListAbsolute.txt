@@ -1,0 +1,11 @@
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\bin\Debug\SystemPlus.Test.exe.config
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\bin\Debug\SystemPlus.Test.exe
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\bin\Debug\SystemPlus.Test.pdb
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\bin\Debug\SystemPlus+.pdb
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\obj\Debug\SystemPlus.Test.csproj.AssemblyReference.cache
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\obj\Debug\SystemPlus.Test.csproj.CoreCompileInputs.cache
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\obj\Debug\SystemPlus.Test.csproj.CopyComplete
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\obj\Debug\SystemPlus.Test.exe
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\obj\Debug\SystemPlus.Test.pdb
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\bin\Debug\SystemPlus+.dll.config
+E:\Program Files\VisualStudioProjects\SystemPlus\Test\SystemPlus.Test\bin\Debug\SystemPlus+.dll
