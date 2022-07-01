@@ -52,9 +52,12 @@
     <Reference Include="Accessibility">
       <HintPath>..\ClientGraphics\Data\Accessibility.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Forms">
       <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
 
   <ItemGroup>

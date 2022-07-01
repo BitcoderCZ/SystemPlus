@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SystemPlus.Vectors;
 
 namespace SystemPlus.Path
@@ -20,7 +16,8 @@ namespace SystemPlus.Path
             {
                 point1 = _point1;
                 point2 = _point2;
-            } else
+            }
+            else
             {
                 point1 = _point2;
                 point2 = _point1;

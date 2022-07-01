@@ -73,7 +73,7 @@ namespace SystemPlus.AI
                 int ni = n.layers[i].L().ni;
 
                 for (int x = 0; x < no; x++)
-                    for (int y = 0; y < ni; y++) 
+                    for (int y = 0; y < ni; y++)
                     {
                         WriteFloat(bytes, n.layers[i].weights[x, y], locOff);
                         locOff += 4;

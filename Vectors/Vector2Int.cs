@@ -1,5 +1,4 @@
-﻿using System;
-using SystemPlus.ClassSupport;
+﻿using SystemPlus.ClassSupport;
 
 namespace SystemPlus.Vectors
 {
@@ -105,13 +104,15 @@ namespace SystemPlus.Vectors
                 if (state == 0 && c == 'X')
                 {
                     state = 1;
-                } else if (state == 1 && char.IsDigit(c))
+                }
+                else if (state == 1 && char.IsDigit(c))
                 {
                     int stop = -1;
                     for (int j = i; j < s.Length; j++)
                     {
                         ArrayRef<char> c2 = new ArrayRef<char>(j, s.ToCharArray());
-                        if (!char.IsDigit(c2)) {
+                        if (!char.IsDigit(c2))
+                        {
                             stop = j;
                             break;
                         }
@@ -125,10 +126,12 @@ namespace SystemPlus.Vectors
                     state = 2;
 
                     i = stop - 1;
-                } else if (state == 2 && c == 'Y')
+                }
+                else if (state == 2 && c == 'Y')
                 {
                     state = 3;
-                } else if (state == 3 && char.IsDigit(c))
+                }
+                else if (state == 3 && char.IsDigit(c))
                 {
                     int stop = -1;
                     for (int j = i; j < s.Length; j++)

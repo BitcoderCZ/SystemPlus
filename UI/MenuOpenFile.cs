@@ -4,12 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using SystemPlus.Extensions;
 using SystemPlus.Vectors;
 using static SystemPlus.Extensions.GeneralExtensions;
 using static SystemPlus.Extensions.IOExtensions;
-using static SystemPlus.Extensions.ColorExtensions;
 
 namespace SystemPlus.UI
 {
@@ -90,7 +88,8 @@ namespace SystemPlus.UI
                         double total = MathPlus.Round(ChooseAppropriate(cd.TotalSize, Unit.B, out Unit unit), 2);
                         double used = MathPlus.Round(Convert(cd.TotalSize - cd.AvailableFreeSpace, Unit.B, unit), 2);
 
-                        if (i == selected) {
+                        if (i == selected)
+                        {
                             Console.ForegroundColor = ConsoleColor.Black;
                             Console.BackgroundColor = ConsoleColor.Gray;
                         }
@@ -127,14 +126,17 @@ namespace SystemPlus.UI
                             return STATUS.CANCEL;
                         else if (selected == drives.Length + 1 && Selected != "")
                             return STATUS.OK;
-                        else if (selected != drives.Length + 1) {
+                        else if (selected != drives.Length + 1)
+                        {
                             path = drives[selected].Name;
                             selected = 0;
                             hasSizes = false;
                             Console.Clear();
                         }
                     }
-                } else {
+                }
+                else
+                {
 
                     if (selected == 0)
                     {
@@ -295,7 +297,7 @@ namespace SystemPlus.UI
                     }
                     #endregion
 
-                    
+
 
                     Console.CursorTop++;
                     Console.CursorLeft = pos.x;
@@ -355,10 +357,12 @@ namespace SystemPlus.UI
                             selected = 0;
                             hasSizes = false;
                             Console.Clear();
-                        } else if (selected < directories.Count + files.Count + 1)
+                        }
+                        else if (selected < directories.Count + files.Count + 1)
                         {
                             Selected = path + files[fileIndex].name;
-                        } else
+                        }
+                        else
                         {
                             if (selected == directories.Count + files.Count + 1)
                                 return STATUS.CANCEL;

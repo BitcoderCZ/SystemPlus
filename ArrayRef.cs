@@ -15,13 +15,13 @@
         public static implicit operator T(ArrayRef<T> ar)
             => ar.Value;
 
-        public static T operator+ (ArrayRef<T> ar, int i)
+        public static T operator +(ArrayRef<T> ar, int i)
             => new ArrayRef<T>(ar.index + i, ar.array);
-        public static T operator- (ArrayRef<T> ar, int i)
+        public static T operator -(ArrayRef<T> ar, int i)
            => new ArrayRef<T>(ar.index - i, ar.array);
-        public static T operator* (ArrayRef<T> ar, int i)
+        public static T operator *(ArrayRef<T> ar, int i)
            => new ArrayRef<T>(ar.index * i, ar.array);
-        public static T operator/ (ArrayRef<T> ar, int i)
+        public static T operator /(ArrayRef<T> ar, int i)
            => new ArrayRef<T>(ar.index / i, ar.array);
     }
 }

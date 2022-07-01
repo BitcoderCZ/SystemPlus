@@ -28,7 +28,8 @@ namespace SystemPlus.ClassSupport
                 try
                 {
                     propers[i].SetValue(this, propers[i].GetValue(Default));
-                } catch { }
+                }
+                catch { }
 
             List<(string name, object value, Type type)> loaded = new List<(string name, object value, Type type)>();
 

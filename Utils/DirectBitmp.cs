@@ -183,6 +183,22 @@ namespace SystemPlus.Utils
             }
         }
 
+        internal static void Draw(this DirectBitmap to, Font.GlyphBitmap from, int x, int y, int fc, int bc)
+        {
+            for (int j = 0; j < from.Height; j++)
+            {
+                for (int i = 0; i < from.Width; i++)
+                {
+                    //int destOfs = x + i + (y + j) * to.Width;
+                    //int fromOfs = i + j * from.Width;
+                    if (from.Pixels[i + j * from.Width] > 1)
+                        to.Write<int>(x + i + (y + j) * to.Width, fc);
+                    else
+                        to.Write<int>(x + i + (y + j) * to.Width, bc);
+                }
+            }
+        }
+
         public static void Draw(this DirectBitmap to, DirectBitmap from, int x, int y)
         {
             Parallel.For(0, from.Height, (int j) =>

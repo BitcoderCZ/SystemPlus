@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SystemPlus
+﻿namespace SystemPlus
 {
     using System;
     using System.Runtime.InteropServices;
@@ -78,16 +72,22 @@ namespace SystemPlus
         {
             MouseEventFlags down;
             MouseEventFlags up;
-            if (mb == MouseButton.Left) {
+            if (mb == MouseButton.Left)
+            {
                 down = MouseEventFlags.LeftDown;
                 up = MouseEventFlags.LeftUp;
-            } else if (mb == MouseButton.Middle) {
+            }
+            else if (mb == MouseButton.Middle)
+            {
                 down = MouseEventFlags.MiddleDown;
                 up = MouseEventFlags.MiddleUp;
-            } else if (mb == MouseButton.Right) {
+            }
+            else if (mb == MouseButton.Right)
+            {
                 down = MouseEventFlags.RightDown;
                 up = MouseEventFlags.RightUp;
-            } else
+            }
+            else
                 return;
             MouseEvent(down);
             if (inter)

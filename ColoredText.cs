@@ -89,7 +89,6 @@ namespace SystemPlus
                 {
                     Console.WriteLine(e.ToString());
                 }
-                int jj = 0;
             }
 
             int t = Console.CursorTop;

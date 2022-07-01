@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using SystemPlus.Vectors;
 
 namespace SystemPlus.Extensions
 {
@@ -39,6 +40,31 @@ namespace SystemPlus.Extensions
         {
             Thread.Sleep(milis);
         }
+
+        public static IntPtr Handle(this System.Windows.Forms.Control window)
+            => window.IsDisposed ? default : Handle((System.Windows.Forms.IWin32Window)window);
+
+        public static IntPtr Handle(this System.Windows.Forms.IWin32Window window) => window.Handle;
+
+        [STAThread]
+        public static IntPtr Handle(this System.Windows.Media.Visual window)
+        {
+            System.Windows.Interop.HwndSource handleSource = window.HandleSource();
+            return handleSource == null || handleSource.IsDisposed ? default : handleSource.Handle;
+        }
+
+        [STAThread]
+        public static System.Windows.Interop.HwndSource HandleSource(this System.Windows.Media.Visual window)
+            => System.Windows.PresentationSource.FromVisual(window) as System.Windows.Interop.HwndSource;
+
+        #region conversions
+
+        public static Vector2D ToVector2D(this System.Drawing.Point p) => new Vector2D(p.X, p.Y);
+        public static Vector2D ToVector2D(this System.Windows.Point p) => new Vector2D(p.X, p.Y);
+
+        public static Vector2Int ToVector2Int(this Vector2D p) => new Vector2Int((int)p.X, (int)p.Y);
+
+        #endregion
 
         public static string ToBits(this int a) => Convert.ToString(a, toBase: 2);
         public static string ToBits(this uint a) => Convert.ToString(a, toBase: 2);
@@ -288,8 +314,8 @@ namespace SystemPlus.Extensions
                 }
                 else if (ch == '&')
                 {
-                    line1 +=  "┌─┐" + space;
-                    line2 +=  "├─┤" + space;
+                    line1 += "┌─┐" + space;
+                    line2 += "├─┤" + space;
                     line3 += @"└─\" + space;
                     continue;
                 }

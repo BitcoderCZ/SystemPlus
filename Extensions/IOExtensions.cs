@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SystemPlus.Extensions
 {
@@ -105,7 +102,8 @@ namespace SystemPlus.Extensions
 
             //Console.WriteLine(path);
 
-            try {
+            try
+            {
                 files = Directory.GetFiles(path);
 
                 for (int i = 0; i < files.Length; i++)
@@ -118,7 +116,7 @@ namespace SystemPlus.Extensions
 
                 for (int i = 0; i < directories.Length; i++)
                     size += Directory_GetSize(directories[i], saveSubDirSizes, saveSubDirSizes, out string ee);
-            } 
+            }
             catch { return 0; }
 
             if (saveSize)
@@ -131,7 +129,8 @@ namespace SystemPlus.Extensions
                     writer.Close();
                     writer.Dispose();
                     File.SetAttributes(path + "SIZE", File.GetAttributes(path + "SIZE") | FileAttributes.Hidden);
-                } catch (Exception eee) { e = eee.ToString(); }
+                }
+                catch (Exception eee) { e = eee.ToString(); }
             }
 
             return size;
@@ -156,7 +155,8 @@ namespace SystemPlus.Extensions
             try
             {
                 Directory.Delete(path);
-            } catch { }
+            }
+            catch { }
         }
     }
 }

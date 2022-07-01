@@ -35,3 +35,4 @@ E:\Program Files\VisualStudioProjects\SystemPlus\bin\Release\net48\Google.Apis.D
 E:\Program Files\VisualStudioProjects\SystemPlus\bin\Release\net48\Google.Apis.Drive.v3.dll
 E:\Program Files\VisualStudioProjects\SystemPlus\bin\Release\net48\Google.Apis.Gmail.v1.dll
 E:\Program Files\VisualStudioProjects\SystemPlus\bin\Release\net48\Newtonsoft.Json.dll
+E:\Program Files\VisualStudioProjects\SystemPlus\bin\Release\net48\WindowsInput.dll

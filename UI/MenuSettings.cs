@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using SystemPlus.Extensions;
 using SystemPlus.Vectors;
 using static SystemPlus.Extensions.GeneralExtensions;
@@ -64,6 +61,7 @@ namespace SystemPlus.UI
         public STATUS Show(Vector2Int pos)
         {
             rp = pos;
+            Console.OutputEncoding = Encoding.Unicode;
             while (true)
             {
                 Console.SetCursorPosition(pos.x, pos.y);
@@ -132,14 +130,16 @@ namespace SystemPlus.UI
                         Array.Copy(options, 0, lastValues, 0, lastValues.Length);
 
                     return selected == options.Length - 1 ? STATUS.OK : STATUS.CANCEL;
-                } else
+                }
+                else
                 {
                     if (options[selected] is MSIButton btn)
                     {
                         MSIButton.EXIT_CODE code = (MSIButton.EXIT_CODE)btn.GetValue();
                         if (code == MSIButton.EXIT_CODE.Exit)
                             return STATUS.BUTTON_EXIT;
-                    } else
+                    }
+                    else
                         options[selected].OnKeyPress(arrow);
                 }
 
@@ -170,7 +170,7 @@ namespace SystemPlus.UI
                     if (i == selected)
                     {
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White; 
+                        Console.BackgroundColor = ConsoleColor.White;
                         string render = options[i].Render();
                         string[] lines = render.GetLines();
 
@@ -542,6 +542,7 @@ namespace SystemPlus.UI
         public const byte TrueFalse = 1;
         public const byte OnOff = 2;
         public const byte YesNo = 3;
+        public const byte Checkmark = 4;
 
         private bool defaultValue;
 
@@ -579,6 +580,8 @@ namespace SystemPlus.UI
                     return (Value == true) ? "On " : "Off";
                 case YesNo:
                     return (Value == true) ? "Yes" : "No ";
+                case Checkmark:
+                    return (Value == true) ? "☑" : "☐";
                 default:
                     return null;
             }
@@ -867,10 +870,14 @@ namespace SystemPlus.UI
                         gettingString += ' ';
                         renderRequest?.Invoke();
                         gettingString = gettingString.Substring(0, gettingString.Length - 1);
-                    } else if (gettingString.Length == 1)
+                    }
+                    else if (gettingString.Length == 1)
                         gettingString = "";
-                } else if (key.Key == ConsoleKey.Enter) {
-                    try {
+                }
+                else if (key.Key == ConsoleKey.Enter)
+                {
+                    try
+                    {
                         int numbI = int.Parse(gettingString);
 
                         if (numbI < lowBounds)
@@ -879,7 +886,8 @@ namespace SystemPlus.UI
                             numbI = higthBounds;
 
                         Value = numbI;
-                    } catch { Value = lowBounds; }
+                    }
+                    catch { Value = lowBounds; }
                     break;
                 }
                 else if (key.Key == ConsoleKey.Escape)
@@ -924,7 +932,8 @@ namespace SystemPlus.UI
         {
             int vvv = 0;
 
-            if (gettingNumber) {
+            if (gettingNumber)
+            {
                 if (string.IsNullOrEmpty(gettingString) || gettingString == "  ")
                     vvv = lowBounds;
                 else
@@ -938,14 +947,15 @@ namespace SystemPlus.UI
                         return "X" + new string(' ', sliderLength);
                     }
                 }
-            } else
+            }
+            else
                 vvv = Value;
 
             string ss = new string('-', sliderLength);//■▪
             StringBuilder sb = new StringBuilder(ss);
             int v = MathPlus.Clamp(
-                MathPlus.RoundToInt(((float)(vvv - lowBounds) / (float)(higthBounds - lowBounds)) * (float)sliderLength), 
-                0, 
+                MathPlus.RoundToInt(((float)(vvv - lowBounds) / (float)(higthBounds - lowBounds)) * (float)sliderLength),
+                0,
                 ss.Length - 1
                 );
 

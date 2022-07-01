@@ -108,7 +108,8 @@ namespace SystemPlus.Extensions
 
         public static void Write(string value, bool highlight)
         {
-            if (highlight) {
+            if (highlight)
+            {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Gray;
             }
@@ -120,6 +121,40 @@ namespace SystemPlus.Extensions
 
         public static void WriteLine(string value, bool highlight) => Write(value + "\n", highlight);
         public static void WriteLine(object value, bool highlight) => WriteLine(value.ToString(), highlight);
+
+        public static string ReadLine(string display)
+        {
+            int left = Console.CursorLeft;
+            string writen = "";
+            int pos = 0;
+
+            while (true)
+            {
+                Console.CursorLeft = left;
+                if (writen == "")
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write(display);
+                    Console.ResetColor();
+                }
+                else
+                    Console.Write(writen);
+
+                ConsoleKeyInfo info = Console.ReadKey(true);
+
+                if (info.Key == ConsoleKey.Enter)
+                    return writen;
+                else if (info.Key == ConsoleKey.Backspace && pos > 0)
+                {
+                    writen = writen.Substring(0, pos - 1) + writen.Substring(pos, writen.Length - pos);
+                    pos--;
+                }
+                else if (info.Key == ConsoleKey.LeftArrow && pos > 0)
+                    pos--;
+                else if (info.Key == ConsoleKey.RightArrow && pos < writen.Length)
+                    pos++;
+            }
+        }
 
         // Set Console Window Position
         private const int SWP_NOZORDER = 0x4;

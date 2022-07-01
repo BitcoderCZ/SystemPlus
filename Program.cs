@@ -2,7 +2,6 @@
 //using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
-using SystemPlus.AI;
 using SystemPlus.Extensions;
 using SystemPlus.GameEngines;
 using SystemPlus.Vectors;
@@ -40,39 +39,39 @@ namespace SystemPlus
         static void Main(string[] args)
         {
             ConsoleExtensions.SetFontSize(40);
-           /* GeneralExtensions.Wait(500);
-            GeneralExtensions.MaxScreen();
-            GeneralExtensions.Wait(500);
+            /* GeneralExtensions.Wait(500);
+             GeneralExtensions.MaxScreen();
+             GeneralExtensions.Wait(500);
 
-            NeuralNetwork net = new NeuralNetwork(new int[] { 3, 25, 25, 1 });
+             NeuralNetwork net = new NeuralNetwork(new int[] { 3, 25, 25, 1 });
 
-            for (int i = 0; i < 10000; i++)
-            {
-                net.FeedForward(new float[] { 0, 0, 0 });
-                net.BackProp(new float[] { 0 });
-                net.FeedForward(new float[] { 0, 0, 1 });
-                net.BackProp(new float[] { 1 });
-                net.FeedForward(new float[] { 0, 1, 0 });
-                net.BackProp(new float[] { 1 });
-                net.FeedForward(new float[] { 0, 1, 1 });
-                net.BackProp(new float[] { 0 });
-                net.FeedForward(new float[] { 1, 0, 0 });
-                net.BackProp(new float[] { 1 });
-                net.FeedForward(new float[] { 1, 0, 1 });
-                net.BackProp(new float[] { 0 });
-                net.FeedForward(new float[] { 1, 1, 0 });
-                net.BackProp(new float[] { 0 });
-                net.FeedForward(new float[] { 1, 1, 1 });
-                net.BackProp(new float[] { 1 });
-            }
-            while (true)
-            {
-                int i1 = int.Parse(Console.ReadLine());
-                int i2 = int.Parse(Console.ReadLine());
-                int i3 = int.Parse(Console.ReadLine());
+             for (int i = 0; i < 10000; i++)
+             {
+                 net.FeedForward(new float[] { 0, 0, 0 });
+                 net.BackProp(new float[] { 0 });
+                 net.FeedForward(new float[] { 0, 0, 1 });
+                 net.BackProp(new float[] { 1 });
+                 net.FeedForward(new float[] { 0, 1, 0 });
+                 net.BackProp(new float[] { 1 });
+                 net.FeedForward(new float[] { 0, 1, 1 });
+                 net.BackProp(new float[] { 0 });
+                 net.FeedForward(new float[] { 1, 0, 0 });
+                 net.BackProp(new float[] { 1 });
+                 net.FeedForward(new float[] { 1, 0, 1 });
+                 net.BackProp(new float[] { 0 });
+                 net.FeedForward(new float[] { 1, 1, 0 });
+                 net.BackProp(new float[] { 0 });
+                 net.FeedForward(new float[] { 1, 1, 1 });
+                 net.BackProp(new float[] { 1 });
+             }
+             while (true)
+             {
+                 int i1 = int.Parse(Console.ReadLine());
+                 int i2 = int.Parse(Console.ReadLine());
+                 int i3 = int.Parse(Console.ReadLine());
 
 
-            }*/
+             }*/
             /*Game game = new Game();
             game.GameStart();*/
 

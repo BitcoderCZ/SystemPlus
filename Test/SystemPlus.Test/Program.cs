@@ -1,36 +1,25 @@
 ﻿//#define G2048
 //#define GC4
 
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Drive.v2;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using SystemPlus.Extensions;
-using SystemPlus.Path;
-using SystemPlus.UI;
-using SystemPlus.Vectors;
-using File = Google.Apis.Drive.v2.Data.File;
-using SFile = System.IO.File;
-using Point = SystemPlus.Path.Point;
-using STATUS = SystemPlus.UI.MenuSettings.STATUS;
-using Color = System.Drawing.Color;
-
-using static SystemPlus.Extensions.IOExtensions;
-using static SystemPlus.Extensions.GeneralExtensions;
-
-using SystemPlus.AI;
-using System.Threading;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using SystemPlus.AI;
+using SystemPlus.Extensions;
+using SystemPlus.UI;
+using SystemPlus.Utils;
+using SystemPlus.Vectors;
+using SystemPlus.Windows;
 using WindowsInput;
 using WindowsInput.Native;
+using static SystemPlus.Extensions.GeneralExtensions;
 using static SystemPlus.MouseOperations;
-using System.Windows.Input;
-using SystemPlus.Utils;
-using System.Threading.Tasks;
+using Color = System.Drawing.Color;
+using SFile = System.IO.File;
 
 namespace SystemPlus.Test
 {
@@ -129,11 +118,31 @@ namespace SystemPlus.Test
             //ConsoleExtensions.SetWindowPosition(2000, 20, 700, 400);
             ConsoleExtensions.Maximaze();
 
-            Console.Clear();
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
 
-            IOExtensions.Directory_Delete(@"C:\Program Files\Docker\");//Directory.Delete(@"C:\Program Files\Docker\");
+            Console.WriteLine(SaveUtil.CreateArray(false,
+                SaveUtil.CreateObject(("name", "pepa"), ("height", "180")),
+                SaveUtil.CreateObject(("name", "simon"), ("height", "170"))));
 
             Console.ReadKey();
+            Console.ReadKey();
+            Console.ReadKey();
+            Console.ReadKey();
+            Console.ReadKey();
+
+            Console.Clear();
+
+            ConsoleWindow console = ConsoleWindow.Create("Test");
+
+            console.Write("Hello\nWorld");
+
+            while (true)
+            {
+                Console.WriteLine(console.Read(false));
+                System.Threading.Thread.Sleep(250);
+            }
+
+           /* Console.ReadKey();
 
             UI.Menu m = new UI.Menu("Select", new string[] { "Create image", "Train", "Load" });
 
@@ -223,7 +232,7 @@ namespace SystemPlus.Test
                     n = NeuralNetwork.Load("E:\\NeuralNetwork.save");
                 else
                     n = new NeuralNetwork(new int[] { 2500, 2000, 2000, 1000, 1000, 500, 500, 500, 200, 1 });
-                
+
                 Console.Write("\n");
 
                 int bIndex = 6;
@@ -284,7 +293,9 @@ namespace SystemPlus.Test
                     Console.WriteLine((res < 0f ? "A" : "B") + "  val: " + res);
                     Console.ReadKey(true);
                 }
-            } else {
+            }
+            else
+            {
                 Console.WriteLine("Loading images");
 
                 string[] files = Directory.GetFiles("E:\\NeuralNetwork\\");
@@ -344,7 +355,7 @@ namespace SystemPlus.Test
                     Console.ReadKey(true);
                 }
             }
-
+           */
             #region nn
             /*NeuralNetwork net = new NeuralNetwork(new int[] { 2, 25, 25, 1 });
 
@@ -440,10 +451,10 @@ namespace SystemPlus.Test
             }
         }
 
-        private static bool PressDown(Key key) => (Keyboard.GetKeyStates(key) & KeyStates.Down) == KeyStates.Down && 
+        private static bool PressDown(Key key) => (Keyboard.GetKeyStates(key) & KeyStates.Down) == KeyStates.Down &&
                                                     (keyStates[key] == KeyStates.None || keyStates[key] == KeyStates.Toggled);
         private static bool Press(Key key) => (Keyboard.GetKeyStates(key) & KeyStates.Down) == KeyStates.Down;
-        private static bool PressUp(Key key) => (Keyboard.GetKeyStates(key) == KeyStates.None || Keyboard.GetKeyStates(key) == KeyStates.Toggled) && 
+        private static bool PressUp(Key key) => (Keyboard.GetKeyStates(key) == KeyStates.None || Keyboard.GetKeyStates(key) == KeyStates.Toggled) &&
                                                 (keyStates[key] & KeyStates.Down) == KeyStates.Down;
 
         private static void Delete()
@@ -550,7 +561,8 @@ namespace SystemPlus.Test
             Process[] process = Process.GetProcessesByName("mspaint");
             if (process.Length > 0)
                 return process[0];
-            else {
+            else
+            {
                 Console.WriteLine("Open MSPaint, than press any key to continue");
                 Console.ReadKey(true);
                 return GetProcess();
