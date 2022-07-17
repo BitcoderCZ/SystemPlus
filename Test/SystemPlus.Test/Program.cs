@@ -120,15 +120,20 @@ namespace SystemPlus.Test
 
             Console.OutputEncoding = System.Text.Encoding.Unicode;
 
+            MenuSettings menu = new MenuSettings("Settings", new IMenuSettingsItem[]
+            {
+                new MSIIntSlider("int", 0, 0, 80) { SliderLength = 20},
+            });
+
+            menu.Show(Vector2Int.Zero);
+
+            while (true) Console.ReadKey(true);
+
             Console.WriteLine(SaveUtil.CreateArray(false,
                 SaveUtil.CreateObject(("name", "pepa"), ("height", "180")),
                 SaveUtil.CreateObject(("name", "simon"), ("height", "170"))));
 
-            Console.ReadKey();
-            Console.ReadKey();
-            Console.ReadKey();
-            Console.ReadKey();
-            Console.ReadKey();
+            while (true) Console.ReadKey(true);
 
             Console.Clear();
 

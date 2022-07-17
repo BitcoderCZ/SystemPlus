@@ -777,7 +777,9 @@ namespace SystemPlus.UI
     {
         public override string Name { get; set; }
 
-        public int sliderLength;
+        public int SliderLength { get => sliderLength; set { sliderLength = value; segmentedLength = value * 4; } }
+        private int sliderLength;
+        private int segmentedLength;
 
         public byte dispType;
 
@@ -805,7 +807,7 @@ namespace SystemPlus.UI
             Value = defaultValue;
             dispType = Normal;
 
-            sliderLength = 10;
+            SliderLength = 10;
 
             gettingNumber = false;
             gettingString = "";
@@ -944,22 +946,33 @@ namespace SystemPlus.UI
                     }
                     catch
                     {
-                        return "X" + new string(' ', sliderLength);
+                        return "X" + new string(' ', SliderLength);
                     }
                 }
             }
             else
                 vvv = Value;
 
-            string ss = new string('-', sliderLength);//■▪
+            string ss = new string('-', SliderLength);//■▪
             StringBuilder sb = new StringBuilder(ss);
             int v = MathPlus.Clamp(
-                MathPlus.RoundToInt(((float)(vvv - lowBounds) / (float)(higthBounds - lowBounds)) * (float)sliderLength),
+                MathPlus.RoundToInt(((float)(vvv - lowBounds) / (float)(higthBounds - lowBounds)) * (float)segmentedLength),
                 0,
-                ss.Length - 1
+                segmentedLength - 1
                 );
 
-            sb[v] = '■';
+            //sb[v] = '■'; ░ ▒ ▓ █
+
+            for (int i = 0; i < v / 4; i++)
+                sb[i] = '█';
+
+            if (Value == higthBounds)
+                sb[v / 4] = '█';
+            else
+            {
+                int remain = v % 4;
+                sb[v / 4] = remain == 0 ? '-' : (remain == 1 ? '░' : (remain == 2 ? '▒' : (remain == 3 ? '▓' : '-')));
+            }
 
             return sb.ToString();
         }
