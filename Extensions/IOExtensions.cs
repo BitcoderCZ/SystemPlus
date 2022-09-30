@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace SystemPlus.Extensions
 {
@@ -157,6 +158,18 @@ namespace SystemPlus.Extensions
                 Directory.Delete(path);
             }
             catch { }
+        }
+
+        public static List<string> Directory_GetFiles(string path)
+        {
+            List<string> files = Directory.GetFiles(path).ToList();
+
+            string[] dirs = Directory.GetDirectories(path);
+
+            for (int i = 0; i < dirs.Length; i++)
+                files.AddRange(Directory_GetFiles(dirs[i]));
+
+            return files;
         }
     }
 }
