@@ -10,14 +10,6 @@ using SystemPlus.Vectors;
 
 namespace SystemPlus.Extensions
 {
-    public enum MergeMode
-    {
-        OneToOne,
-        TwoToOne,
-        ThreeToOne,
-        FourToOne,
-        FiveToOne,
-    }
     public static class GeneralExtensions
     {
         [DllImport("kernel32.dll", ExactSpelling = true)]
@@ -41,10 +33,10 @@ namespace SystemPlus.Extensions
             Thread.Sleep(milis);
         }
 
-        public static IntPtr Handle(this System.Windows.Forms.Control window)
-            => window.IsDisposed ? default : Handle((System.Windows.Forms.IWin32Window)window);
+        public static IntPtr Handle(this Control window)
+            => window.IsDisposed ? default : Handle((IWin32Window)window);
 
-        public static IntPtr Handle(this System.Windows.Forms.IWin32Window window) => window.Handle;
+        public static IntPtr Handle(this IWin32Window window) => window.Handle;
 
         [STAThread]
         public static IntPtr Handle(this System.Windows.Media.Visual window)
@@ -239,9 +231,7 @@ namespace SystemPlus.Extensions
             string line2 = "";
             string line3 = "";
 
-            string space = new string(' ', _spaceBetweenLetters);/*"";
-            for (int i = 0; i < _spaceBetweenLetters; i++)
-                space += " ";*/
+            string space = new string(' ', _spaceBetweenLetters);
 
             Type t = typeof(GeneralExtensions);
             List<FieldInfo> fields = t.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly).ToList();
@@ -415,9 +405,9 @@ namespace SystemPlus.Extensions
         }
 
         public const string BIG_A = "┌─┐\n├─┤\n╵ ╵"; //─│┌┐└┘├┤┬┴┼   ━┃┏┓┗┛┣┠┫┨┰┳┸┻╂╋   ╱╲
-        public const string BIG_B = "├─┐\n├─┤\n├─┘"; //│ ╱
-        public const string BIG_C = "┌─╴\n│  \n└─╴"; //├┤
-        public const string BIG_D = "├─┐\n│ │\n├─┘"; //│ ╲
+        public const string BIG_B = "├─┐\n├─┤\n├─┘";
+        public const string BIG_C = "┌─╴\n│  \n└─╴";
+        public const string BIG_D = "├─┐\n│ │\n├─┘";
         public const string BIG_E = "┌─╴\n├─╴\n└─╴";
         public const string BIG_F = "┌─╴\n├─╴\n╵  ";
         public const string BIG_G = "┌─╴\n│ ┐\n└─┘";

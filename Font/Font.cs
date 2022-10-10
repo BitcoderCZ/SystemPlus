@@ -110,7 +110,7 @@ namespace SystemPlus.Font
         public int valid;
     }
 
-    internal class Font : IDisposable
+    public class Font : IDisposable
     {
         public int Id { get; set; }
 
@@ -1491,7 +1491,7 @@ namespace SystemPlus.Font
             return (P > 0);
         }
 
-        public FontGlyph RenderGlyph(char ID, float scale)
+        internal FontGlyph RenderGlyph(char ID, float scale)
         {
             if (!HasGlyph(ID))
             {

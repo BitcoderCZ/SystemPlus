@@ -43,7 +43,7 @@ namespace SystemPlus.ConsoleGames
             switch (value)
             {
                 case -1:
-                    return "#┃0015";//"# 1515";
+                    return "#┃0015";
                 case 1:
                     return "#┃0004";
                 case 2:
@@ -252,7 +252,7 @@ namespace SystemPlus.ConsoleGames
                 }
         }
 
-        private bool SetToRandom(int v)
+        private bool SetToRandom(int val)
         {
             for (int i = 0; i < 16; i++)
                 if (grid[i] == -1)
@@ -266,7 +266,7 @@ namespace SystemPlus.ConsoleGames
                 int i = random.Next(0, 16);
                 if (grid[i] == -1)
                 {
-                    grid[i] = v;
+                    grid[i] = val;
                     return false;
                 }
             }

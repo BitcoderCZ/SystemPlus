@@ -3,7 +3,7 @@ using SystemPlus.ClassSupport;
 
 namespace SystemPlus.Vectors
 {
-    public sealed class Vector4 : CloneSupport<Vector4>
+    public sealed class Vector4 : ICloneSupport<Vector4>
     {
         public float x;
         public float y;
@@ -214,7 +214,7 @@ namespace SystemPlus.Vectors
             return int.Parse(x.ToString()) ^ int.Parse(y.ToString()) ^ int.Parse(z.ToString()) ^ int.Parse(w.ToString());
         }
 
-        public override Vector4 Clone()
+        public Vector4 Clone()
         {
             return new Vector4(x, y, z, w);
         }

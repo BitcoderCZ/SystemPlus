@@ -48,7 +48,7 @@ namespace SystemPlus.UI
                     break;
             }
 
-            Color color = ColorExtensions.FromConsoleColor((ConsoleColor)index);//BasicColors[index];
+            Color color = ColorExtensions.FromConsoleColor((ConsoleColor)index);
             color.a = (byte)alpha;
             return color;
         }
@@ -91,7 +91,7 @@ namespace SystemPlus.UI
 
         public byte To8()
         {
-            byte color = (byte)((int)ColorExtensions.ClosestConsoleColor(this));//(byte)this.ClosestColor(BasicColors);
+            byte color = (byte)((int)ColorExtensions.ClosestConsoleColor(this));
             byte alpha;
 
             if (a <= 64)
@@ -109,7 +109,7 @@ namespace SystemPlus.UI
             value = (byte)((int)value | (int)alpha);
             return value;
         }
-        public ConsoleColor ToConsoleColor() // (short)((int)foregroundColor | ((int)backgroundColor << 4))
+        public ConsoleColor ToConsoleColor()
         {
             return (ConsoleColor)this.ClosestColor(BasicColors);
         }

@@ -47,23 +47,6 @@ namespace SystemPlus.Extensions
         public static int GetX(int i, int width)
             => i % (width - 1);
 
-        [Obsolete]
-        public static int GetY(int i, int width, int height)
-        {
-            /*int y = height - 1;
-            for (int j = (width * height) - width; j > i; j -= width)
-            {
-                y--;
-            }*/
-            int y = 0;
-            for (int j = width; j < i; j += width)
-            {
-                Console.WriteLine(j + "  " + i + "  " + y);
-                y++;
-            }
-            return y;//(int)Math.Round(MathPlus.FlipAround((double)y, ((double)height / 2d) - 0.5d));
-        }
-
         public static T[] FindAll<T>(this T[] array, Func<T, bool> selector)
         {
             List<T> ts = new List<T>();
@@ -74,7 +57,7 @@ namespace SystemPlus.Extensions
             return ts.ToArray();
         }
 
-        public static T[] Clone<T>(this T[] array) where T : CloneSupport<T>
+        public static T[] Clone<T>(this T[] array) where T : ICloneSupport<T>
         {
             T[] clone = new T[array.Length];
 
@@ -84,7 +67,7 @@ namespace SystemPlus.Extensions
             return clone;
         }
 
-        public static List<T> Clone<T>(this List<T> list) where T : CloneSupport<T>
+        public static List<T> Clone<T>(this List<T> list) where T : ICloneSupport<T>
         {
             T[] clone = new T[list.Count];
 

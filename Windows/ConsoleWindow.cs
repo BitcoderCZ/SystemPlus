@@ -219,32 +219,19 @@ namespace SystemPlus.Windows
 
         private void Update()
         {
-            /*Stopwatch frameWatch = new Stopwatch();
-            while (!Dispatcher.HasShutdownStarted)
+            // Input
+            Input.Update();
+            for (int i = 0; i < Input.keys.Length; i++)
             {
-                frameWatch.Start();*/
-
-                // Input
-                Input.Update();
-                for (int i = 0; i < Input.keys.Length; i++)
-                {
-                    if ((Input.keys[i].pressedDown == true || Input.keys[i].pressedDuration > 30) && keyRequests > 0)
-                        keysQueued.Enqueue((Input.keys[i].Key, Input.KeyModifiers[Input.keys[i].Key]));
-                }
-
-                // Render
-                Buffer.Clear(Color.Black.ToArgb());
-                for (int i = bufferOffset; i < Math.Min(bufferOffset + bufferHeightDisplayed, charBuffer.Length); i++)
-                    FontRender.RenderConsole(FontLibrary.Get(fontID), Buffer, charBuffer[i], colors, 0, i * charSize.Height, textSize);
-                Render();
-                //Event
-                //System.Windows.Forms.Application.DoEvents();
-
-               /* frameWatch.Stop();
-
-                Thread.Sleep(Math.Max(1000 - (int)(uint)frameWatch.ElapsedMilliseconds, 0));
+                if ((Input.keys[i].pressedDown == true || Input.keys[i].pressedDuration > 30) && keyRequests > 0)
+                    keysQueued.Enqueue((Input.keys[i].Key, Input.KeyModifiers[Input.keys[i].Key]));
             }
-            Dispose();*/
+
+            // Render
+            Buffer.Clear(Color.Black.ToArgb());
+            for (int i = bufferOffset; i < Math.Min(bufferOffset + bufferHeightDisplayed, charBuffer.Length); i++)
+                FontRender.RenderConsole(FontLibrary.Get(fontID), Buffer, charBuffer[i], colors, 0, i * charSize.Height, textSize);
+            Render();
         }
 
         private void CreateSurface(Size size)

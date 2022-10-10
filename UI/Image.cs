@@ -199,6 +199,7 @@ namespace SystemPlus.UI
         }
         #endregion
 
+        [Obsolete("Just dont use this, to slow...")]
         public Image Resize(int newWidth, int newHeight)
         {
             if (newWidth < 0 || newHeight < 0)

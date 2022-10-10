@@ -2,7 +2,7 @@
 
 namespace SystemPlus.Vectors
 {
-    public sealed class Vector3Int : CloneSupport<Vector3Int>
+    public sealed class Vector3Int : ICloneSupport<Vector3Int>
     {
         public int x;
         public int y;
@@ -114,7 +114,7 @@ namespace SystemPlus.Vectors
             return x ^ y ^ z;
         }
 
-        public override Vector3Int Clone()
+        public Vector3Int Clone()
         {
             return new Vector3Int(x, y, z);
         }

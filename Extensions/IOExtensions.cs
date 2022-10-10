@@ -101,8 +101,6 @@ namespace SystemPlus.Extensions
 
             string[] files;
 
-            //Console.WriteLine(path);
-
             try
             {
                 files = Directory.GetFiles(path);

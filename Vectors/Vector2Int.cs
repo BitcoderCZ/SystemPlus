@@ -2,7 +2,7 @@
 
 namespace SystemPlus.Vectors
 {
-    public sealed class Vector2Int : CloneSupport<Vector2Int>
+    public sealed class Vector2Int : ICloneSupport<Vector2Int>
     {
         public int x;
         public int y;
@@ -168,7 +168,7 @@ namespace SystemPlus.Vectors
             return x ^ y;
         }
 
-        public override Vector2Int Clone()
+        public Vector2Int Clone()
         {
             return new Vector2Int(x, y);
         }

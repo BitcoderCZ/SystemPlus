@@ -6,6 +6,7 @@ using SystemPlus.Extensions;
 
 namespace SystemPlus.ClassSupport
 {
+    [Obsolete("Use SaveSupportPlus instead")]
     public abstract class SaveSupport
     {
         protected abstract void save(string path);
@@ -17,9 +18,7 @@ namespace SystemPlus.ClassSupport
         {
             if (!Directory.Exists(location))
                 return false;
-            //FileSave fs = new FileSave();
-            save(location + fileName);//ref fs, Path.GetExtension(location + fileName));
-            //File.WriteAllBytes(location + fileName, fs.Bytes);
+            save(location + fileName);
             return true;
         }
 

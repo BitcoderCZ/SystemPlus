@@ -208,7 +208,6 @@ namespace SystemPlus.UI
                     {
                         Marshal.FreeHGlobal(buffer);
                     }
-
                 }
             }
         }

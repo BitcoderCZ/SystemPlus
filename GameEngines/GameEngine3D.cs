@@ -56,36 +56,7 @@ namespace SystemPlus.GameEngines
         public virtual void LateUpdate() { }
         int pw = 3;
         public GameEngine3D()
-        {
-            /*gameObjects = new List<GameObject>();
-            StartInfo3D info = Start();
-            PixOneByOne = info.pixelsOneByOne;
-            if (PixOneByOne)
-            {
-                bufferSize = new Vector2Int(info.Width * pw, info.Height);
-                buffer = new CharInfo[(info.Width * pw) * info.Height];
-                rect = new SmallRect() { Left = 0, Top = 0, Right = (short)(info.Width * pw), Bottom = info.Height };
-            }
-            else
-            {
-                bufferSize = new Vector2Int(info.Width, info.Height);
-                buffer = new CharInfo[info.Width * info.Height];
-                rect = new SmallRect() { Left = 0, Top = 0, Right = info.Width, Bottom = info.Height };
-            }
-            FOV = info.FOV;
-            Z0 = (bufferSize.x / 2f) / MathF.Tan((FOV / 2f) * 3.14159265f / 180f);
-            SafeFileHandle h = CreateFile("CONOUT$", 0x40000000, 2, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
-            if (h.IsInvalid)
-                throw new Exception("ERROR");
-            ConsoleExtensions.SetFontSize(info.pixelSize);
-            Thread.Sleep(500);
-            GeneralExtensions.MaxScreen();
-            title = info.Title;
-            FPS = 10f;
-            Console.Title = title + " - FPS: " + FPS;
-            var gameLoopThread = new Thread(() => GameLoop(rect, h));
-            gameLoopThread.Start();*/
-        }
+        { }
 
         public void GameStart()
         {
@@ -162,7 +133,6 @@ namespace SystemPlus.GameEngines
                 FPS = 1000f / (float)milis;
 
                 Console.Title = title + " - FPS: " + MathPlus.Round(FPS * 100f) / 100f;
-
             }
         }
 

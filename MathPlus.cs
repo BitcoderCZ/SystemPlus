@@ -280,53 +280,6 @@ namespace SystemPlus
         }
 
 
-        /*public static int ClampV2(int value, int min, int max, int maxLoops = 10000000)
-        {
-            if (min < 0 || max <= min || value < min)
-                return -1;
-
-            int minus = max - min;
-
-            for (int i = 0; i < maxLoops; i++)
-                if (value <= max)
-                    return value;
-                else
-                    value -= minus;
-
-            return -1;
-        }
-        public static float ClampV2(float value, float min, float max, int maxLoops = 10000000)
-        {
-            if (min < 0 || max <= min || value < min)
-                return -1;
-
-            float minus = max - min;
-
-            for (int i = 0; i < maxLoops; i++)
-                if (value <= max)
-                    return value;
-                else
-                    value -= minus;
-
-            return -1;
-        }
-        public static double ClampV2(double value, double min, double max, int maxLoops = 10000000)
-        {
-            if (min < 0 || max <= min || value < min)
-                return -1;
-
-            double minus = max - min;
-
-            for (int i = 0; i < maxLoops; i++)
-                if (value <= max)
-                    return value;
-                else
-                    value -= minus;
-
-            return -1;
-        }*/
-
-
 
         public static int FlipAround(int value, int center)
         {

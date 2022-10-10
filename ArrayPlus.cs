@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace SystemPlus
 {
+    [Obsolete]
     public sealed class ArrayPlus<TKey, TValue> : IEnumerable, IEnumerable<(TKey index, TValue value)>
     {
         private List<(TKey key, TValue value)> list = new List<(TKey key, TValue value)>();

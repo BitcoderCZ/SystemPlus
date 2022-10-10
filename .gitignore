@@ -1,0 +1,13 @@
+Icon.ico
+Program.cs
+SaveUtil.cs
+obj/
+bin/
+.vs/
+Data/
+AI/
+Fonts/
+GoogleDrive/
+GoogleMail/
+packages/
+Test/

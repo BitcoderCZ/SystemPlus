@@ -162,6 +162,7 @@ namespace SystemPlus.GameEngines
 
                 Console.Title = title + " - FPS: " + MathPlus.Round(FPS * 100f) / 100f;
 
+                Thread.Sleep(0);
             }
         }
 

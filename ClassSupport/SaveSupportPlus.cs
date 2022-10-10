@@ -33,11 +33,7 @@ namespace SystemPlus.ClassSupport
 
             List<(string name, object value, Type type)> loaded = new List<(string name, object value, Type type)>();
 
-
-            /*if (!File.Exists(path))
-                throw new FileNotFoundException($"File {path} does not exist.", path);*/
-
-            string[] values = /*File.ReadAllText(path)*/data.Replace(" ", string.Empty).Split(';');
+            string[] values = data.Replace(" ", string.Empty).Split(';');
 
             for (int i = 1; i < values.Length - 1; i++)
             {
@@ -73,7 +69,7 @@ namespace SystemPlus.ClassSupport
                 {
                     if (e.ToString() == $"Type {t} not supported")
                         throw e;
-                    Console.WriteLine($"Field / Variable says is of type {t} but the value({split[2]}) is not.  e: " + e.ToString());
+                    Console.WriteLine($"Field / Variable says is of type {t} but the value({split[2]}) is not.  ex: " + e.ToString());
                 }
             }
 
@@ -169,7 +165,7 @@ namespace SystemPlus.ClassSupport
                 {
                     if (e.ToString() == $"Type {t} not supported")
                         throw e;
-                    Console.WriteLine($"Field / Variable says is of type {t} but the value({split[2]}) is not.  e: " + e.ToString());
+                    Console.WriteLine($"Field / Variable says is of type {t} but the value({split[2]}) is not.  ex: " + e.ToString());
                 }
             }
 
@@ -240,7 +236,7 @@ namespace SystemPlus.ClassSupport
                     text += t.ToString() + ":" + propers[i].Name + ":" + propers[i].GetValue(this).ToString() + ";\n";
             }
             text += "}";
-            return text;//File.WriteAllText(path, text);
+            return text;
         }
 
         public virtual void Save(string path)

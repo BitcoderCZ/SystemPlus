@@ -116,7 +116,7 @@ namespace SystemPlus.Test
         static void Main(string[] args)
         {
             //ConsoleExtensions.SetWindowPosition(2000, 20, 700, 400);
-            ConsoleExtensions.Maximaze();
+            ConsoleExtensions.Maximize();
 
             Console.OutputEncoding = System.Text.Encoding.Unicode;
 

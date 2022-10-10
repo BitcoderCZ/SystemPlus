@@ -7,7 +7,7 @@ using SystemPlus.Vectors;
 
 namespace SystemPlus.GameEngines
 {
-    public class GameObject : CloneSupport<GameObject>
+    public class GameObject : ICloneSupport<GameObject>
     {
         public Vector3 Position;
         public Vector3 Rotation;
@@ -33,7 +33,7 @@ namespace SystemPlus.GameEngines
             mainMesh = new Mesh(engine);
             mesh = new Mesh(engine);
             engine = _engine;
-            components = new Component[9999];
+            components = new Component[999];
         }
 
         public GameObject(Mesh _mesh, GameEngine3D _engine)
@@ -46,7 +46,7 @@ namespace SystemPlus.GameEngines
             mainMesh = _mesh.Clone();
             mesh = mainMesh.Clone();
             engine = _engine;
-            components = new Component[9999];
+            components = new Component[999];
         }
 
         public void Render()
@@ -109,7 +109,7 @@ namespace SystemPlus.GameEngines
             components[pos].Start();
         }
 
-        public override GameObject Clone()
+        public GameObject Clone()
         {
             GameObject _gm = new GameObject(mainMesh, engine);
             _gm.Position = Position;
@@ -142,7 +142,7 @@ namespace SystemPlus.GameEngines
         }
     }
 
-    public class Mesh : CloneSupport<Mesh>
+    public class Mesh : ICloneSupport<Mesh>
     {
         public List<Triangle> tris;
 
@@ -194,7 +194,6 @@ namespace SystemPlus.GameEngines
                 engine.DrawTriangle((Vector2Short)tri.verts[0], (Vector2Short)tri.verts[1],
                     (Vector2Short)tri.verts[2], PIXEL.PIXEL_SOLID, CONSOLE_COLOR.Green);
             }
-            //GeneralExtensions.Wait(100000);
         }
 
         public static Mesh FromFile(string[] lines, FileType ft, GameEngine3D _engine)
@@ -232,7 +231,7 @@ namespace SystemPlus.GameEngines
             }
         }
 
-        public override Mesh Clone() => new Mesh(tris.Clone(), engine);
+        public Mesh Clone() => new Mesh(tris.Clone(), engine);
 
         public enum FileType
         {
@@ -240,7 +239,7 @@ namespace SystemPlus.GameEngines
         }
     }
 
-    public class Triangle : CloneSupport<Triangle>
+    public struct Triangle : ICloneSupport<Triangle>
     {
         public readonly Vector3[] verts;
 
@@ -281,7 +280,7 @@ namespace SystemPlus.GameEngines
                 verts[i] = Vector3.CenterScreen(verts[i], Size);
         }
 
-        public override Triangle Clone()
+        public Triangle Clone()
         {
             return new Triangle(verts.Clone<Vector3>());
         }

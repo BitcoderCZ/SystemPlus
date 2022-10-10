@@ -2,7 +2,7 @@
 
 namespace SystemPlus.Vectors
 {
-    public sealed class Vector2Short : CloneSupport<Vector2Short>
+    public sealed class Vector2Short : ICloneSupport<Vector2Short>
     {
         public short x;
         public short y;
@@ -109,7 +109,7 @@ namespace SystemPlus.Vectors
             return x ^ y;
         }
 
-        public override Vector2Short Clone()
+        public Vector2Short Clone()
         {
             return new Vector2Short(x, y);
         }

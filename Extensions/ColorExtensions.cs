@@ -8,7 +8,7 @@ namespace SystemPlus.Extensions
     public static class ColorExtensions
     {
         /// <summary>
-        ///  Returns index of closetst color
+        ///  Returns index of closest color
         /// </summary>
         public static int ClosestColor(this Color c, Color[] colors)
         {
@@ -46,7 +46,7 @@ namespace SystemPlus.Extensions
             foreach (ConsoleColor cc in Enum.GetValues(typeof(ConsoleColor)))
             {
                 var n = Enum.GetName(typeof(ConsoleColor), cc);
-                var c = System.Drawing.Color.FromName(n == "DarkYellow" ? "Orange" : n); // bug fix
+                var c = System.Drawing.Color.FromName(n == "DarkYellow" ? "Orange" : n);
                 var t = Math.Pow(c.R - rr, 2.0) + Math.Pow(c.G - gg, 2.0) + Math.Pow(c.B - bb, 2.0);
                 if (t == 0.0)
                     return cc;

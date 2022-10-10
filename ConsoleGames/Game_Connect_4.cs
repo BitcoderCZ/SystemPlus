@@ -68,8 +68,6 @@ namespace SystemPlus.ConsoleGames
         }
         private string PL() => player1 ? "#┃0009" : "#┃0012";
 
-        Random random;
-
         const int width = 7;
         const int height = 5;
 
@@ -77,8 +75,6 @@ namespace SystemPlus.ConsoleGames
 
         public Game_Connect_4()
         {
-            random = new Random();
-
             grid = new int[width * height];
             winPoses = new int[4];
 
@@ -88,7 +84,7 @@ namespace SystemPlus.ConsoleGames
         public void Set(int xPos)
         {
             if (xPos < 0 || xPos >= width)
-                return;//throw new IndexOutOfRangeException($"{xPos} is >= {width}");
+                return;
 
             if (grid[xPos] != -1)
                 return;

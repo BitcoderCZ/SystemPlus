@@ -2,7 +2,7 @@
 
 namespace SystemPlus.Vectors
 {
-    public class SizeI : CloneSupport<SizeI>
+    public class SizeI : ICloneSupport<SizeI>
     {
         public int Width;
         public int Heigth;
@@ -97,7 +97,7 @@ namespace SystemPlus.Vectors
             return Width ^ Heigth;
         }
 
-        public override SizeI Clone()
+        public SizeI Clone()
         {
             return new SizeI(Width, Heigth);
         }

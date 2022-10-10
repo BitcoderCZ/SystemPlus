@@ -32,7 +32,6 @@ namespace SystemPlus.Extensions
             public int FontFamily;
             public int FontWeight;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-            //[MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.wc, SizeConst = 32)]
             public string FontName;
         }
 
@@ -46,8 +45,6 @@ namespace SystemPlus.Extensions
 
         public static FontInfo[] SetCurrentFont(string font, short fontSize = 0)
         {
-            //Console.WriteLine("Set Current Font: " + font);
-
             FontInfo before = new FontInfo
             {
                 cbSize = Marshal.SizeOf<FontInfo>()
@@ -100,7 +97,7 @@ namespace SystemPlus.Extensions
         private const int MINIMIZE = 6;
         private const int RESTORE = 9;
 
-        public static void Maximaze()
+        public static void Maximize()
         {
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
             ShowWindow(ThisConsole, MAXIMIZE);
@@ -164,37 +161,16 @@ namespace SystemPlus.Extensions
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
             int x, int y, int cx, int cy, int flags);
 
-        /*static void Main(string[] args)
-        {
-            Console.WindowWidth = 50;
-            Console.WindowHeight = 3;
-            Console.BufferWidth = 50;
-            Console.BufferHeight = 3;
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-
-            var screen = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
-            var width = screen.Width;
-            var height = screen.Height;
-
-            SetWindowPosition(100, height - 300, 500, 100);
-            Console.Title = "My Title";
-            Console.WriteLine("");
-            Console.Write(" Press any key to close this window ...");
-
-            Console.ReadKey();
-        }*/
-
 
         /// <summary>
         /// Sets the console window location and size in pixels
         /// </summary>
         public static void SetWindowPosition(int x, int y, int width, int height)
         {
-            SetWindowPos(Handle, IntPtr.Zero, x, y, width, height, SWP_NOZORDER | SWP_NOACTIVATE);
+            SetWindowPos(ConsoleHandle, IntPtr.Zero, x, y, width, height, SWP_NOZORDER | SWP_NOACTIVATE);
         }
 
-        private static IntPtr Handle
+        public static IntPtr ConsoleHandle
         {
             get
             {
