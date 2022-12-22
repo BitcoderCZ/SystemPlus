@@ -51,20 +51,21 @@ namespace SystemPlus.Utils
 
         #region routines
 
-        public static unsafe DirectBitmap Load(string path)
+        public static unsafe DirectBitmap Load(string path, bool log = true)
         {
             if (!File.Exists(path))
                 throw new FileNotFoundException("File doesnt exists", path);
 
             DateTime start = DateTime.Now;
-            Console.WriteLine("Loading " + path);
+            if (log)
+                Console.WriteLine("Loading " + path);
 
             Bitmap srcBitmap = new Bitmap(path);
             DirectBitmap db = new DirectBitmap(srcBitmap.Size);
 
             Rectangle bmpBounds = new Rectangle(0, 0, srcBitmap.Width, srcBitmap.Height);
-            BitmapData srcData = srcBitmap.LockBits(bmpBounds, ImageLockMode.ReadOnly, srcBitmap.PixelFormat);
-            BitmapData resData = db.Bitmap.LockBits(bmpBounds, ImageLockMode.WriteOnly, db.Bitmap.PixelFormat);
+            BitmapData srcData = srcBitmap.LockBits(bmpBounds, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);//srcBitmap.PixelFormat);
+            BitmapData resData = db.Bitmap.LockBits(bmpBounds, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);//db.Bitmap.PixelFormat);
 
             int* srcScan0 = (int*)srcData.Scan0;
             int* resScan0 = (int*)resData.Scan0;
@@ -82,20 +83,22 @@ namespace SystemPlus.Utils
                 db.Bitmap.UnlockBits(resData);
             }
 
-            Console.WriteLine("Loaded " + path + " in " + (DateTime.Now - start).TotalSeconds + " seconds");
+            if (log)
+                Console.WriteLine("Loaded " + path + " in " + (DateTime.Now - start).TotalSeconds + " seconds");
 
             srcBitmap.Dispose();
 
             return db;
         }
 
-        public static DirectBitmap LoadSafe(string path)
+        public static DirectBitmap LoadSafe(string path, bool log = true)
         {
             if (!File.Exists(path))
                 throw new FileNotFoundException("File doesnt exists", path);
 
             DateTime start = DateTime.Now;
-            Console.WriteLine("Loading " + path);
+            if (log)
+                Console.WriteLine("Loading " + path);
 
             Bitmap b = new Bitmap(path);
 
@@ -104,7 +107,57 @@ namespace SystemPlus.Utils
             for (int i = 0; i < db.Width * db.Height; i++)
                 db.Write(i, b.GetPixel(i % db.Width, i / db.Width).ToArgb());
 
-            Console.WriteLine("Loaded " + path + " in " + (DateTime.Now - start).TotalSeconds + " seconds");
+            if (log)
+                Console.WriteLine("Loaded " + path + " in " + (DateTime.Now - start).TotalSeconds + " seconds");
+
+            return db;
+        }
+
+        public static unsafe DirectBitmap LoadFromBm(Bitmap srcBitmap, bool log = true)
+        {
+            DateTime start = DateTime.Now;
+            if (log)
+                Console.WriteLine("Loading DB");
+
+            DirectBitmap db = new DirectBitmap(srcBitmap.Size);
+
+            Rectangle bmpBounds = new Rectangle(0, 0, srcBitmap.Width, srcBitmap.Height);
+            BitmapData srcData = srcBitmap.LockBits(bmpBounds, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            BitmapData resData = db.Bitmap.LockBits(bmpBounds, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+
+            int* srcScan0 = (int*)srcData.Scan0;
+            int* resScan0 = (int*)resData.Scan0;
+            int numPixels = srcData.Stride / 4 * srcData.Height;
+            try {
+                for (int p = 0; p < numPixels; p++) {
+                    resScan0[p] = srcScan0[p];
+                }
+            }
+            finally {
+                srcBitmap.UnlockBits(srcData);
+                db.Bitmap.UnlockBits(resData);
+            }
+
+            if (log)
+                Console.WriteLine("Loaded DB in " + (DateTime.Now - start).TotalSeconds + " seconds");
+
+            return db;
+        }
+
+        public static DirectBitmap LoadSafeFromBm(Bitmap srcBitmap, bool log = true)
+        {
+            DateTime start = DateTime.Now;
+            if (log)
+                Console.WriteLine("Loading DB");
+
+            DirectBitmap db = new DirectBitmap(srcBitmap.Size);
+
+            for (int x = 0; x < srcBitmap.Width; x++)
+                for (int y = 0; y < srcBitmap.Height; y++)
+                    db.Data[y * db.Width + x] = srcBitmap.GetPixel(x, y).ToArgb();
+
+            if (log)
+                Console.WriteLine("Loaded DB in " + (DateTime.Now - start).TotalSeconds + " seconds");
 
             return db;
         }

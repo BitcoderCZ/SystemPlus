@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using SystemPlus.Extensions;
 using SystemPlus.Vectors;
@@ -49,8 +50,8 @@ namespace SystemPlus.UI
             options = new IMenuSettingsItem[_options.Length + 2];
             Array.Copy(_options, 0, options, 0, _options.Length);
 
-            options[options.Length - 2] = new MSILabel("\n" + "Cancel".ToBIG());
-            options[options.Length - 1] = new MSILabel("Ok".ToBIG());
+            options[options.Length - 2] = new MSILabel("Cancel");
+            options[options.Length - 1] = new MSILabel("Ok");
 
             for (int i = 0; i < options.Length; i++)
                 options[i].renderRequest = () => { Render(rp); };
@@ -64,59 +65,7 @@ namespace SystemPlus.UI
             Console.OutputEncoding = Encoding.Unicode;
             while (true)
             {
-                Console.SetCursorPosition(pos.x, pos.y);
-                Console.ResetColor();
-
-                for (int i = 0; i < title.GetLines().Length; i++)
-                {
-                    Console.CursorLeft = pos.x;
-                    Console.Write(title.GetLines()[i] + "\n");
-                }
-
-                Console.Write("\n");
-
-                for (int i = 0; i < options.Length; i++)
-                {
-                    Console.CursorLeft = pos.x;
-                    if (i == selected)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        string render = options[i].Render();
-                        string[] lines = render.GetLines();
-
-                        if (lines.Length < 2)
-                            Console.Write(options[i].Render());
-                        else
-                            for (int j = 0; j < lines.Length; j++)
-                            {
-                                Console.CursorLeft = pos.x;
-                                Console.Write(lines[j] + "\n");
-                            }
-                        Console.ResetColor();
-                        Console.Write('\n');
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        string render = options[i].Render();
-                        string[] lines = render.GetLines();
-
-                        if (lines.Length < 2)
-                            Console.Write(options[i].Render());
-                        else
-                            for (int j = 0; j < lines.Length; j++)
-                            {
-                                Console.CursorLeft = pos.x;
-                                Console.Write(lines[j] + "\n");
-                            }
-                        Console.ResetColor();
-                        Console.Write('\n');
-                    }
-                }
-
-                Console.ResetColor();
+                Render(pos);
 
                 Arrows arrow = GetArrow();
 
@@ -147,166 +96,6 @@ namespace SystemPlus.UI
             }
         }
 
-        public STATUS Show(Vector2Int pos, Image image)
-        {
-            rp = pos;
-            while (true)
-            {
-                Console.SetCursorPosition(pos.x, pos.y);
-                image.Print();
-                Console.ResetColor();
-
-                for (int i = 0; i < title.GetLines().Length; i++)
-                {
-                    Console.CursorLeft = pos.x;
-                    Console.Write(title.GetLines()[i] + "\n");
-                }
-
-                Console.Write("\n");
-
-                for (int i = 0; i < options.Length; i++)
-                {
-                    Console.CursorLeft = pos.x;
-                    if (i == selected)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        string render = options[i].Render();
-                        string[] lines = render.GetLines();
-
-                        if (lines.Length < 2)
-                            Console.Write(options[i].Render());
-                        else
-                            for (int j = 0; j < lines.Length; j++)
-                            {
-                                Console.CursorLeft = pos.x;
-                                Console.Write(lines[j] + "\n");
-                            }
-                        Console.ResetColor();
-                        Console.Write('\n');
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        string render = options[i].Render();
-                        string[] lines = render.GetLines();
-
-                        if (lines.Length < 2)
-                            Console.Write(options[i].Render());
-                        else
-                            for (int j = 0; j < lines.Length; j++)
-                            {
-                                Console.CursorLeft = pos.x;
-                                Console.Write(lines[j] + "\n");
-                            }
-                        Console.ResetColor();
-                        Console.Write('\n');
-                    }
-                }
-
-                Console.ResetColor();
-
-                Arrows arrow = GetArrow();
-
-                if (arrow == Arrows.Up && selected > 0)
-                    selected--;
-                else if (arrow == Arrows.Down && selected < options.Length - 1)
-                    selected++;
-                else if (arrow == Arrows.Enter && (selected == options.Length - 1 || selected == options.Length - 2))
-                {
-                    if (selected == options.Length - 1)
-                        Array.Copy(options, 0, lastValues, 0, lastValues.Length);
-
-                    return selected == options.Length - 1 ? STATUS.OK : STATUS.CANCEL;
-                }
-                else
-                    options[selected].OnKeyPress(arrow);
-
-                selected = MathPlus.Clamp(selected, 0, options.Length);
-            }
-        }
-
-        public STATUS Show(Vector2Int pos, ConsoleImage image)
-        {
-            rp = pos;
-            while (true)
-            {
-                Console.SetCursorPosition(pos.x, pos.y);
-                image.Print();
-                Console.ResetColor();
-
-                for (int i = 0; i < title.GetLines().Length; i++)
-                {
-                    Console.CursorLeft = pos.x;
-                    Console.Write(title.GetLines()[i] + "\n");
-                }
-
-                Console.Write("\n");
-
-                for (int i = 0; i < options.Length; i++)
-                {
-                    Console.CursorLeft = pos.x;
-                    if (i == selected)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.BackgroundColor = ConsoleColor.White;
-                        string render = options[i].Render();
-                        string[] lines = render.GetLines();
-
-                        if (lines.Length < 2)
-                            Console.Write(options[i].Render());
-                        else
-                            for (int j = 0; j < lines.Length; j++)
-                            {
-                                Console.CursorLeft = pos.x;
-                                Console.Write(lines[j] + "\n");
-                            }
-                        Console.ResetColor();
-                        Console.Write('\n');
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        string render = options[i].Render();
-                        string[] lines = render.GetLines();
-
-                        if (lines.Length < 2)
-                            Console.Write(options[i].Render());
-                        else
-                            for (int j = 0; j < lines.Length; j++)
-                            {
-                                Console.CursorLeft = pos.x;
-                                Console.Write(lines[j] + "\n");
-                            }
-                        Console.ResetColor();
-                        Console.Write('\n');
-                    }
-                }
-
-                Console.ResetColor();
-
-                Arrows arrow = GetArrow();
-
-                if (arrow == Arrows.Up && selected > 0)
-                    selected--;
-                else if (arrow == Arrows.Down && selected < options.Length - 1)
-                    selected++;
-                else if (arrow == Arrows.Enter && (selected == options.Length - 1 || selected == options.Length - 2))
-                {
-                    if (selected == options.Length - 1)
-                        Array.Copy(options, 0, lastValues, 0, lastValues.Length);
-
-                    return selected == options.Length - 1 ? STATUS.OK : STATUS.CANCEL;
-                }
-                else
-                    options[selected].OnKeyPress(arrow);
-
-                selected = MathPlus.Clamp(selected, 0, options.Length);
-            }
-        }
-
         public void Render(Vector2Int pos)
         {
             Console.SetCursorPosition(pos.x, pos.y);
@@ -330,132 +119,21 @@ namespace SystemPlus.UI
                     string render = options[i].Render();
                     string[] lines = render.GetLines();
 
-                    if (lines.Length < 2)
-                        Console.Write(options[i].Render());
+                    if (lines.Length < 2) {
+                        Console.Write(render);
+                        Console.ResetColor();
+                        Console.Write(new string(' ', Console.WindowWidth - (Console.CursorLeft + 1)) + "\n");
+                    }
                     else
-                        for (int j = 0; j < lines.Length; j++)
-                        {
+                        for (int j = 0; j < lines.Length; j++) {
                             Console.CursorLeft = pos.x;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.BackgroundColor = ConsoleColor.White;
                             Console.Write(lines[j] + "\n");
+                            Console.ResetColor();
+                            Console.Write(new string(' ', Console.WindowWidth - (Console.CursorLeft + 1)) + "\n");
                         }
                     Console.ResetColor();
-                    Console.Write('\n');
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    string render = options[i].Render();
-                    string[] lines = render.GetLines();
-
-                    if (lines.Length < 2)
-                        Console.Write(options[i].Render());
-                    else
-                        for (int j = 0; j < lines.Length; j++)
-                        {
-                            Console.CursorLeft = pos.x;
-                            Console.Write(lines[j] + "\n");
-                        }
-                    Console.ResetColor();
-                    Console.Write('\n');
-                }
-            }
-
-            Console.ResetColor();
-        }
-
-        public void Render(Vector2Int pos, Image image)
-        {
-            Console.SetCursorPosition(pos.x, pos.y);
-            image.Print();
-            Console.ResetColor();
-
-            for (int i = 0; i < title.GetLines().Length; i++)
-            {
-                Console.CursorLeft = pos.x;
-                Console.Write(title.GetLines()[i] + "\n");
-            }
-
-            Console.Write("\n");
-
-            for (int i = 0; i < options.Length; i++)
-            {
-                Console.CursorLeft = pos.x;
-                if (i == selected)
-                {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.White;
-                    string render = options[i].Render();
-                    string[] lines = render.GetLines();
-
-                    if (lines.Length < 2)
-                        Console.Write(options[i].Render());
-                    else
-                        for (int j = 0; j < lines.Length; j++)
-                        {
-                            Console.CursorLeft = pos.x;
-                            Console.Write(lines[j] + "\n");
-                        }
-                    Console.ResetColor();
-                    Console.Write('\n');
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    string render = options[i].Render();
-                    string[] lines = render.GetLines();
-
-                    if (lines.Length < 2)
-                        Console.Write(options[i].Render());
-                    else
-                        for (int j = 0; j < lines.Length; j++)
-                        {
-                            Console.CursorLeft = pos.x;
-                            Console.Write(lines[j] + "\n");
-                        }
-                    Console.ResetColor();
-                    Console.Write('\n');
-                }
-            }
-
-            Console.ResetColor();
-        }
-
-        public void Render(Vector2Int pos, ConsoleImage image)
-        {
-            Console.SetCursorPosition(pos.x, pos.y);
-            image.Print();
-            Console.ResetColor();
-
-            for (int i = 0; i < title.GetLines().Length; i++)
-            {
-                Console.CursorLeft = pos.x;
-                Console.Write(title.GetLines()[i] + "\n");
-            }
-
-            Console.Write("\n");
-
-            for (int i = 0; i < options.Length; i++)
-            {
-                Console.CursorLeft = pos.x;
-                if (i == selected)
-                {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.White;
-                    string render = options[i].Render();
-                    string[] lines = render.GetLines();
-
-                    if (lines.Length < 2)
-                        Console.Write(options[i].Render());
-                    else
-                        for (int j = 0; j < lines.Length; j++)
-                        {
-                            Console.CursorLeft = pos.x;
-                            Console.Write(lines[j] + "\n");
-                        }
-                    Console.ResetColor();
-                    Console.Write('\n');
                 }
                 else
                 {
@@ -575,13 +253,13 @@ namespace SystemPlus.UI
             switch (dispType)
             {
                 case TrueFalse:
-                    return (Value == true) ? "True " : "False";
+                    return (Value == true) ? "True" : "False";
                 case OnOff:
-                    return (Value == true) ? "On " : "Off";
+                    return (Value == true) ? "On" : "Off";
                 case YesNo:
-                    return (Value == true) ? "Yes" : "No ";
+                    return (Value == true) ? "Yes" : "No";
                 case Checkmark:
-                    return (Value == true) ? "☑" : "☐";
+                    return (Value == true) ? "\u221A" : "X";
                 default:
                     return null;
             }
@@ -768,6 +446,239 @@ namespace SystemPlus.UI
                 default:
                     return null;
             }
+        }
+
+        public override string Render() => Name + ": " + getVal();
+    }
+
+    public class MSIFloatValue : MenuSettingsItem<float>
+    {
+        public override string Name { get; set; }
+
+        public byte dispType;
+
+        public const byte Normal = 1;
+        public const byte MinMax = 2;
+
+        private float defaultValue;
+
+        private float lowBounds;
+
+        private float higthBounds;
+
+        public float step = 1f;
+
+        public MSIFloatValue(string name, float _defaultValue, float _lowBounds, float _higthBounds)
+        {
+            Name = name;
+            defaultValue = _defaultValue;
+            lowBounds = _lowBounds;
+            higthBounds = _higthBounds;
+
+            if (defaultValue < lowBounds)
+                defaultValue = lowBounds;
+            else if (defaultValue > higthBounds)
+                defaultValue = higthBounds;
+
+            Value = defaultValue;
+            dispType = Normal;
+
+            gettingNumber = false;
+            gettingString = "";
+        }
+
+        public override void SetDefault() => Value = defaultValue;
+
+        public override void OnKeyPress(Arrows keyInfo)
+        {
+            switch (keyInfo) {
+                case Arrows.Left:
+                    if (Value > lowBounds) {
+                        int l = Value.ToString().Length;
+                        Value -= step;
+                        if (Value.ToString().Length < l) {
+                            gettingNumber = true;
+                            gettingString = new string(' ', higthBounds.ToString().Length);
+                            renderRequest?.Invoke();
+                            gettingNumber = false;
+                        }
+                    }
+                    if (Value < lowBounds)
+                        Value = lowBounds;
+                    break;
+                case Arrows.Rigth:
+                    if (Value < higthBounds)
+                        Value += step;
+                    if (Value > higthBounds)
+                        Value = higthBounds;
+                    break;
+                case Arrows.Enter:
+                    GetNumber();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void GetNumber()
+        {
+            gettingNumber = true;
+
+            gettingString = new string(' ', higthBounds.ToString().Length);
+            renderRequest?.Invoke();
+
+            Console.CursorVisible = true;
+
+            gettingString = "";
+
+            while (true) {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                if (char.IsDigit(key.KeyChar) || key.KeyChar == '-' || key.KeyChar.ToString() == CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
+                    gettingString += key.KeyChar;
+                else if (key.Key == ConsoleKey.Backspace) {
+                    if (gettingString.Length > 1) {
+                        gettingString = gettingString.Substring(0, gettingString.Length - 1);
+                    }
+                    else if (gettingString.Length == 1)
+                        gettingString = string.Empty;
+                }
+                else if (key.Key == ConsoleKey.Enter) {
+                    try {
+                        float numbI = float.Parse(gettingString, CultureInfo.InvariantCulture);
+
+                        if (numbI < lowBounds)
+                            numbI = lowBounds;
+                        else if (numbI > higthBounds)
+                            numbI = higthBounds;
+
+                        Value = numbI;
+                    }
+                    catch { Value = lowBounds; }
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                    break;
+
+                renderRequest?.Invoke();
+            }
+
+            Console.CursorVisible = false;
+
+            gettingNumber = false;
+
+            Console.Clear();
+
+            renderRequest?.Invoke();
+        }
+
+        private bool gettingNumber;
+        private string gettingString;
+
+        private string getVal()
+        {
+            const string btw = " / ";
+            switch (dispType) {
+                case Normal:
+                    if (gettingNumber)
+                        return string.IsNullOrEmpty(gettingString) ? "0" : gettingString;
+                    else
+                        return Value.ToString();
+                case MinMax:
+                    if (gettingNumber)
+                        return lowBounds + btw + (string.IsNullOrEmpty(gettingString) ? "0" : gettingString) + btw + higthBounds + "    ";
+                    else
+                        return lowBounds + btw + Value.ToString() + btw + higthBounds + "    ";
+                default:
+                    return null;
+            }
+        }
+
+        public override string Render() => Name + ": " + getVal();
+    }
+
+    public class MSIStringValue : MenuSettingsItem<string>
+    {
+        public override string Name { get; set; }
+
+        private string defaultValue;
+        public int maxLenght;
+
+        public MSIStringValue(string name, string _defaultValue, int _maxLenght)
+        {
+            Name = name;
+            defaultValue = _defaultValue;
+
+            Value = defaultValue;
+            maxLenght = _maxLenght;
+
+            currentlyGetting = false;
+            gettingString = "";
+        }
+
+        public override void SetDefault() => Value = defaultValue;
+
+        public override void OnKeyPress(Arrows keyInfo)
+        {
+            switch (keyInfo) {
+                case Arrows.Enter:
+                    GetString();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void GetString()
+        {
+            currentlyGetting = true;
+
+            renderRequest?.Invoke();
+
+            Console.CursorVisible = true;
+
+            gettingString = Value;
+
+            while (true) {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                if (!char.IsControl(key.KeyChar) && key.KeyChar != '\0' && gettingString.Length < maxLenght)
+                    gettingString += key.KeyChar;
+                else if (key.Key == ConsoleKey.Backspace) {
+                    if (gettingString.Length > 1) {
+                        gettingString = gettingString.Substring(0, gettingString.Length - 1);
+                    }
+                    else if (gettingString.Length == 1)
+                        gettingString = "";
+                }
+                else if (key.Key == ConsoleKey.Enter) {
+                    Value = gettingString;
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                    break;
+
+                renderRequest?.Invoke();
+            }
+
+            Console.CursorVisible = false;
+
+            currentlyGetting = false;
+
+            Console.Clear();
+
+            renderRequest?.Invoke();
+        }
+
+        private bool currentlyGetting;
+        private string gettingString;
+
+        private string getVal()
+        {
+            if (currentlyGetting)
+                return gettingString;
+            else
+                return Value;
         }
 
         public override string Render() => Name + ": " + getVal();

@@ -12,7 +12,7 @@ namespace SystemPlus.GameEngines
     public abstract class GameEngine3D
     {
         public float FPS;
-        public int MaxFPS = 30;
+        public int MaxFPS = 60;
         private Vector2Int bufferSize;
         public Vector2Int BufferSize { get { return bufferSize.Clone(); } }
         private string title;

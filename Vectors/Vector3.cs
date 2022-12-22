@@ -33,9 +33,9 @@ namespace SystemPlus.Vectors
 
         public Vector3(string _x, string _y, string _z)
         {
-            x = float.Parse(_x);//.Replace('.', ','));
-            y = float.Parse(_y);//.Replace('.', ','));
-            z = float.Parse(_z);//.Replace('.', ','));
+            x = float.Parse(_x.Replace('.', ','));
+            y = float.Parse(_y.Replace('.', ','));
+            z = float.Parse(_z.Replace('.', ','));
         }
         #endregion
 

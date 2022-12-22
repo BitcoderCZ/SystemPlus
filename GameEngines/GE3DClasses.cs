@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SystemPlus.ClassSupport;
 using SystemPlus.Extensions;
 using SystemPlus.Vectors;
@@ -175,25 +176,33 @@ namespace SystemPlus.GameEngines
             for (int i = 0; i < _tris.Count; i++)
                 _tris[i].Translate(Position);
 
-            for (int i = 0; i < _tris.Count; i++)
-                _tris[i].ApplyPerspective(engine.Z0);
-
-            for (int i = 0; i < _tris.Count; i++)
-                _tris[i].CenterScreen(new Vector2(engine.BufferSize.x / 3, engine.BufferSize.y / 1));
             /*for (int i = 0; i < _tris.Count; i++)
-            {
-                for (int y = 0; y < _tris[i].verts.Length; y++)
-                {
-                    _tris[i].verts[y] = new Vector3(_tris[i].verts[y].x + 20, _tris[i].verts[y].y + 20);
-                }
-            }*/
+                _tris[i].ApplyPerspective(engine.Z0);*/
 
-            for (int i = 0; i < _tris.Count; i++)
+            Parallel.For(0, _tris.Count, (int i) =>
+            {
+                _tris[i].ApplyPerspective(engine.Z0);
+            });
+
+            /*for (int i = 0; i < _tris.Count; i++)
+                _tris[i].CenterScreen(new Vector2(engine.BufferSize.x / 3, engine.BufferSize.y / 1));*/
+            Parallel.For(0, _tris.Count, (int i) =>
+            {
+                _tris[i].CenterScreen(new Vector2(engine.BufferSize.x / 3, engine.BufferSize.y / 1));
+            });
+
+           /* for (int i = 0; i < _tris.Count; i++)
             {
                 Triangle tri = _tris[i];
                 engine.DrawTriangle((Vector2Short)tri.verts[0], (Vector2Short)tri.verts[1],
                     (Vector2Short)tri.verts[2], PIXEL.PIXEL_SOLID, CONSOLE_COLOR.Green);
-            }
+            }*/
+            Parallel.For(0, _tris.Count, (int i) =>
+            {
+                Triangle tri = _tris[i];
+                engine.DrawTriangle((Vector2Short)tri.verts[0], (Vector2Short)tri.verts[1],
+                    (Vector2Short)tri.verts[2], PIXEL.PIXEL_SOLID, CONSOLE_COLOR.Green);
+            });
         }
 
         public static Mesh FromFile(string[] lines, FileType ft, GameEngine3D _engine)

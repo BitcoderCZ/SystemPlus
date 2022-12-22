@@ -8,6 +8,31 @@ namespace SystemPlus.Extensions
 {
     public static class ArrayExtensions
     {
+        public static float Avrage(this float[] array)
+        {
+            if (array.Length == 0)
+                return 0f;
+
+            float total = 0f;
+            for (int i = 0; i < array.Length; i++)
+                total += array[i];
+
+            return total / (float)array.Length;
+        }
+
+
+        public static float Avrage(this List<float> array)
+        {
+            if (array.Count == 0)
+                return 0f;
+
+            float total = 0f;
+            for (int i = 0; i < array.Count; i++)
+                total += array[i];
+
+            return total / (float)array.Count;
+        }
+
         public static bool ContainsChar(this char[,] array, char ch, out int count)
         {
             int c = 0;
